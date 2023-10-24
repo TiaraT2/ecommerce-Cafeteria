@@ -9,14 +9,15 @@ import {
   Box,
   Spacer,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div>
       <Flex>
-        <Box>
-          Cafeteria
-        </Box>
+        <Link to={"/"}>
+        <Box>Girasoles</Box>
+        </Link>
         <Spacer />
         <Box>
           <Menu>
@@ -24,15 +25,23 @@ const Navbar = () => {
               <h1>Menu</h1>
             </MenuButton>
             <MenuList>
+              <Link to={`/categoria/${"Bebida"}`}>
               <MenuItem>Bebidas</MenuItem>
+              </Link>
+              <Link to={`/categoria/${"Pastel"}`}>
               <MenuItem>Comidas</MenuItem>
+              </Link>
+              <Link to={`/categoria/${"Combo"}`}>
               <MenuItem>Combos</MenuItem>
+              </Link>
             </MenuList>
           </Menu>
         </Box>
         <Spacer />
         <Box>
+          <Link to={"/cart"}>
           <CartWidget />
+          </Link>
         </Box>
       </Flex>
     </div>

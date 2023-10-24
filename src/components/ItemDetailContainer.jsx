@@ -1,12 +1,7 @@
 import React from "react";
-import ItemList from "./ItemList";
-import { Center } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import ItemDetail from "./ItemDetail";
 
-const ItemListContainer = ({}) => {
-  const { type } = useParams();
- 
-
+const ItemDetailContainer = () => {
   const productos = [
     {
       id: 1,
@@ -73,37 +68,13 @@ const ItemListContainer = ({}) => {
     },
   ];
 
-  const mostrarProductos = new Promise((resolve, reject) => {
-    if (productos.length > 0) {
-      setTimeout(() => {
-        resolve(productos);
-      }, 3000);
-    } else {
-      reject("No se encontraron productos");
-    }
-  });
-
-  mostrarProductos
-    .then((resultado) => {
-      console.log(resultado);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
- console.log(type);
-  const filterProduct = productos.filter((product) => product.type === type);
-
   return (
-    <div>
-      <Center p="1rem">
-        {type ? (
-          <ItemList productos={filterProduct} />
-        ) : (
-          <ItemList productos={productos} />
-        )}
-      </Center>
-    </div>
+    <>
+    
+       <ItemDetail productos={productos}/>
+
+    </>
   );
 };
 
-export default ItemListContainer;
+export default ItemDetailContainer;
