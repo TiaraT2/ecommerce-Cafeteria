@@ -1,50 +1,60 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../context/ShoppingCartContext";
 import {
   Card,
   CardBody,
   Stack,
+  CardFooter,
+  Button,
   Heading,
   Text,
   Divider,
-  CardFooter,
   ButtonGroup,
-  Button,
 } from "@chakra-ui/react";
-import useCounter from "./useCounter.js";
+import ItemCount from "./ItemCount";
+import { useParams } from "react-router-dom";
 
 const ItemDetail = ({ productos }) => {
   const { id } = useParams();
-  const filteredProduct = productos.filter((producto) => producto.id == id);
+  const { addItem } = useContext(CartContext);
+  const [quantityAdded, setQuantityAdded] = useState(1);
+  const selectedProduct = productos; // Remove the array filtering
 
-  const { count, increment, decrement } = useCounter(0, 1);
+  const agregarAlCarrito = () => {
+    if (!isNaN(quantityAdded) && quantityAdded > 0) {
+      const item = {
+        id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+      };
+      addItem(item, quantityAdded);
+    } else {
+      console.log("Cantidad inválida");
+    }
+  };
 
   return (
     <div>
-      {filteredProduct.map((p) => {
-        return (
-          <Card maxW="sm">
-            <CardBody>
-              <Stack mt="6" spacing="3">
-                <Heading size="md">{p.name}</Heading>
-                <Text>{p.type}</Text>
-                <Text>{p.description}</Text>
-                <Text color="blue.600" fontSize="2xl">
-                  ${p.price}
-                </Text>
-              </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <ButtonGroup spacing="2">
-                <Button colorScheme="green" onClick={increment}>+</Button>
-                <text>{count}</text>
-                <Button colorScheme="red" onClick={decrement}>-</Button>
-              </ButtonGroup>
-            </CardFooter>
-          </Card>
-        );
-      })}
+      <Card maxW="sm">
+        <CardBody>
+          <Stack mt="6" spacing="3">
+            <Heading size="md">{selectedProduct.name}</Heading>
+            <img src={selectedProduct.img} alt={selectedProduct.name} />
+            <Text>{selectedProduct.type}</Text>
+            <Text>{selectedProduct.description}</Text>
+            <Text color="blue.600" fontSize="2xl">
+              ${selectedProduct.price}
+            </Text>
+          </Stack>
+        </CardBody>
+        <Divider />
+        <CardFooter>
+          <ButtonGroup spacing="2">
+            <ItemCount />
+            <button onClick={agregarAlCarrito}>Agregar al carrito</button>
+          </ButtonGroup>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

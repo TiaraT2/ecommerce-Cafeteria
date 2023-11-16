@@ -1,80 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
 const ItemDetailContainer = () => {
-  const productos = [
-    {
-      id: 1,
-      name: "Café Americano",
-      type: "Bebida",
-      description: "Café negro recién hecho",
-      price: 2.99,
-    },
-    {
-      id: 2,
-      name: "Café Latte",
-      type: "Bebida",
-      description: "Café con leche y espuma de leche",
-      price: 3.49,
-    },
-    {
-      id: 3,
-      name: "Café Mocha",
-      type: "Bebida",
-      description: "Café con chocolate y crema batida",
-      price: 3.99,
-    },
-    {
-      id: 4,
-      name: "Pastel de Chocolate",
-      type: "Pastel",
-      description: "Delicioso pastel de chocolate",
-      price: 4.99,
-    },
-    {
-      id: 5,
-      name: "Pastel de Fresa",
-      type: "Pastel",
-      description: "Pastel de fresa fresca",
-      price: 4.99,
-    },
-    {
-      id: 6,
-      name: "Pastel de Zanahoria",
-      type: "Pastel",
-      description: "Pastel de zanahoria con nueces",
-      price: 5.49,
-    },
-    {
-      id: 7,
-      name: "Combo Americano",
-      type: "Combo",
-      description: "Café Americano y pastel de chocolate",
-      price: 6.99,
-    },
-    {
-      id: 8,
-      name: "Combo Latte",
-      type: "Combo",
-      description: "Café Latte y pastel de fresa",
-      price: 7.49,
-    },
-    {
-      id: 9,
-      name: "Combo Mocha",
-      type: "Combo",
-      description: "Café Mocha y pastel de zanahoria",
-      price: 8.49,
-    },
-  ];
+  const { id } = useParams();
+  const [productos, setProductos] = useState(null); // Change to null
 
-  return (
-    <>
-    
-       <ItemDetail productos={productos}/>
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore();
+      const oneItem = doc(db, "menu", `${id}`);
 
-    </>
-  );
+      try {
+        const snapshot = await getDoc(oneItem);
+        if (snapshot.exists()) {
+          const docs = {
+            id: snapshot.id,
+            ...snapshot.data(),
+          };
+          setProductos(docs);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  // Show loading state while data is being fetched
+  if (!productos) {
+    return <p>Loading...</p>;
+  }
+
+  return <ItemDetail productos={productos} id={id} />;
 };
 
 export default ItemDetailContainer;

@@ -7,7 +7,7 @@ const useCounter = (initialValue = 0, step = 1) => {
         setCount((prevCount)=> prevCount + step)
     }
     const decrement =()=>{
-        setCount((prevCount)=> prevCount - step)
+        setCount((prevCount) => (prevCount - step >= 0 ? prevCount - step : 0));
     }
 
     return {

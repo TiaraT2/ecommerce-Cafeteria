@@ -10,6 +10,7 @@ const ItemList = ({ productos }) => {
             key={p.id}
             id={p.id}
             name={p.name}
+            img={p.img}
             type={p.type}
             description={p.description}
             price={p.price}
@@ -20,4 +21,4 @@ const ItemList = ({ productos }) => {
   );
 };
 
-export default ItemList;
+export default React.memo(ItemList);

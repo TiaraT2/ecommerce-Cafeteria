@@ -16,7 +16,7 @@ const Navbar = () => {
     <div>
       <Flex>
         <Link to={"/"}>
-        <Box>Girasoles</Box>
+          <Box>Girasoles</Box>
         </Link>
         <Spacer />
         <Box>
@@ -26,13 +26,13 @@ const Navbar = () => {
             </MenuButton>
             <MenuList>
               <Link to={`/categoria/${"Bebida"}`}>
-              <MenuItem>Bebidas</MenuItem>
+                <MenuItem>Bebidas</MenuItem>
               </Link>
               <Link to={`/categoria/${"Pastel"}`}>
-              <MenuItem>Comidas</MenuItem>
+                <MenuItem>Comidas</MenuItem>
               </Link>
               <Link to={`/categoria/${"Combo"}`}>
-              <MenuItem>Combos</MenuItem>
+                <MenuItem>Combos</MenuItem>
               </Link>
             </MenuList>
           </Menu>
@@ -40,7 +40,7 @@ const Navbar = () => {
         <Spacer />
         <Box>
           <Link to={"/cart"}>
-          <CartWidget />
+            <CartWidget />
           </Link>
         </Box>
       </Flex>
