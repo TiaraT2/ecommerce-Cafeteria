@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Badge, Flex, Box, Divider } from "@chakra-ui/react";
+import { Badge, Flex, Box, Divider, Center } from "@chakra-ui/react";
 import { CartContext } from "../context/ShoppingCartContext";
 
 const CartWidget = () => {
@@ -10,8 +10,8 @@ const CartWidget = () => {
         <Box>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="50px"
+            height="50px"
             fill="currentColor"
             class="bi bi-cart"
             viewBox="0 0 16 16"
@@ -21,7 +21,9 @@ const CartWidget = () => {
         </Box>
         <Divider />
         <Box>
-          <Badge colorScheme="green">{totalQuantity}</Badge>
+          <Badge fontSize='24px' width="50px" height="50px" colorScheme="purple" borderRadius='md'>
+            <Center h="45px">{totalQuantity}</Center>
+          </Badge>
         </Box>
       </Flex>
     </div>

@@ -10,7 +10,9 @@ const ItemCount = () => {
       <Button colorScheme="green" onClick={increment}>
         +
       </Button>
-      <text>{count}</text>
+      <Button colorScheme="black" variant="outline">
+        {count}
+      </Button>
       <Button colorScheme="red" onClick={decrement}>
         -
       </Button>

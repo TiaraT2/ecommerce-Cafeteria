@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
+import "./index.css";
+import { theme } from "./resource/theme/theme.js";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -14,7 +16,7 @@ const firebaseConfig = {
   projectId: "ecommerce-girasoles",
   storageBucket: "ecommerce-girasoles.appspot.com",
   messagingSenderId: "950230004023",
-  appId: "1:950230004023:web:09544810dc0a7816cc6ab2"
+  appId: "1:950230004023:web:09544810dc0a7816cc6ab2",
 };
 
 // Initialize Firebase
@@ -22,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>

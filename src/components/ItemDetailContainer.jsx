@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useParams } from "react-router-dom";
+import { Center, Spinner } from "@chakra-ui/react";
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
-  const [productos, setProductos] = useState(null); // Change to null
+  const [productos, setProductos] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,9 +30,13 @@ const ItemDetailContainer = () => {
     fetchData();
   }, [id]);
 
-  // Show loading state while data is being fetched
   if (!productos) {
-    return <p>Loading...</p>;
+    return (
+      <Center>
+        {" "}
+        <Spinner />
+      </Center>
+    );
   }
 
   return <ItemDetail productos={productos} id={id} />;
